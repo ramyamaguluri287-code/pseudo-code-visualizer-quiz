@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pseudo Code Visualizer & Quiz System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>PseudoCode Studio</h1>
+          <p>Quiz 8 • Interactive Visualizer & Trace System</p>
+        </div>
+      </div>
+
+      <div class="header-stats">
+        <div class="timer-pill" title="Time elapsed">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="timerDisplay">00:00</span>
+        </div>
+
+        <button type="button" class="btn-visualizer-toggle" id="visualizerToggleBtn" title="Open Interactive Visualizer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>Visualizer</span>
+        </button>
+
+        <button type="button" class="btn-icon" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Strip Indicator -->
+    <div class="progress-strip-container">
+      <div class="progress-strip-bar" id="progressStrip"></div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-wrapper">
+
+    <!-- QUIZ ACTIVE SECTION -->
+    <div id="quizViewSection">
+      <div class="quiz-layout">
+        
+        <!-- Sidebar Navigation & Question Matrix -->
+        <aside class="quiz-sidebar">
+          <div class="sidebar-title">
+            <h2>Question Matrix</h2>
+            <span class="status-badge" id="answeredCountBadge">0/20</span>
+          </div>
+
+          <!-- 20 Quick Jump Buttons Grid -->
+          <div class="question-grid" id="questionGrid"></div>
+
+          <!-- Legend -->
+          <div class="grid-legend">
+            <div class="legend-item">
+              <span class="legend-dot answered"></span>
+              <span>Answered</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot current"></span>
+              <span>Current Question</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot unvisited"></span>
+              <span>Unanswered</span>
+            </div>
+          </div>
+
+          <!-- View Mode Toggle -->
+          <div class="view-mode-toggle">
+            <span class="view-mode-label">Display Mode</span>
+            <div class="toggle-pills">
+              <button type="button" class="toggle-pill-btn active" id="btnModeSingle">Focus Card</button>
+              <button type="button" class="toggle-pill-btn" id="btnModeAll">Forms Flow</button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Quiz Main Flow -->
+        <section class="quiz-content">
+          <!-- Top Form Description Banner (Google Forms Style) -->
+          <div class="form-banner-card">
+            <div class="form-banner-inner">
+              <h2>Pseudo Code Mastery Assessment</h2>
+              <p>Evaluate variables, while loops, for loops, and array manipulation in real time. Click <strong>Visualize</strong> on any problem to step through animated execution.</p>
+              <div class="form-meta-row">
+                <div class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>20 Questions • 30 Mins</span>
+                </div>
+                <div class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Pass Threshold: 60% (12/20)</span>
+                </div>
+                <div class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <span>Step-by-Step Trace Tables Included</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container where Question Cards get rendered -->
+          <div id="quizCardsContainer"></div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- RESULTS & REVIEW SECTION -->
+    <div class="results-page" id="resultsViewSection">
+      
+      <!-- Top Score Hero Card -->
+      <div class="results-hero-card">
+        <div class="score-circle-wrapper">
+          <div class="score-dial" id="scoreDial">
+            <div class="score-dial-inner">
+              <span class="score-big-number" id="scoreNumber">0</span>
+              <span class="score-total-denom">/ 20</span>
+              <span class="score-percentage" id="scorePercent">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-info-column">
+          <div class="pass-fail-badge passed" id="passFailBadge">PASSED</div>
+          <div class="results-headline">
+            <h2 id="resultHeadline">Assessment Completed!</h2>
+            <p id="resultMessage">Detailed performance breakdown and execution logic traces are provided below.</p>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Time Spent</span>
+              <span class="metric-value" id="timeSpentMetric">00:00</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Accuracy</span>
+              <span class="metric-value" id="accuracyMetric">0%</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Strong Area</span>
+              <span class="metric-value" id="bestCategoryMetric">-</span>
+            </div>
+          </div>
+
+          <div class="results-actions-bar">
+            <button type="button" class="btn-primary" id="btnRetake">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              Retake Quiz
+            </button>
+            <button type="button" class="btn-secondary" id="btnPrintReport">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Print / Save Report
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Question Breakdown -->
+      <div class="review-header-bar">
+        <h3 style="font-size:1.3rem; font-weight:700;">Answer Review & Trace Tables</h3>
+        <div class="review-filter-tabs">
+          <button type="button" class="filter-tab active" data-filter="all">All (20)</button>
+          <button type="button" class="filter-tab" data-filter="correct">Correct Only</button>
+          <button type="button" class="filter-tab" data-filter="incorrect">Incorrect Only</button>
+        </div>
+      </div>
+
+      <!-- Container where review cards are dynamically inserted -->
+      <div id="reviewCardsContainer" style="display:flex; flex-direction:column; gap:1.5rem;"></div>
+
+    </div>
+
+  </main>
+
+  <!-- Interactive Visualizer Side Drawer / Modal Overlay -->
+  <div class="visualizer-overlay" id="visualizerOverlay">
+    <div class="visualizer-panel" id="visPanel">
+      
+      <!-- Drawer Header -->
+      <div class="vis-header">
+        <div class="vis-title-area">
+          <h3 id="visTitle">Code Visualizer</h3>
+          <p id="visCategory">ARRAY OPERATIONS • STEP TRACE</p>
+        </div>
+        <button type="button" class="vis-close-btn" id="visCloseBtn" title="Close Drawer (Esc)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Content -->
+      <div class="vis-body">
+        
+        <!-- Animated Graphical Stage -->
+        <div class="vis-stage" id="visStage"></div>
+
+        <!-- Step Description Callout -->
+        <div class="vis-step-callout">
+          <h4>Execution Step Explanation</h4>
+          <p id="visStepDesc">Click Play or Step Forward to start execution animation.</p>
+        </div>
+
+        <!-- Synchronized Code Block -->
+        <div class="code-container" style="margin-bottom:0;">
+          <div class="code-header-bar">
+            <div class="code-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="code-language-tag">CURRENT LINE</span>
+          </div>
+          <div class="code-block-body" id="visCodeContainer"></div>
+        </div>
+
+        <!-- Variable Watch Inspector -->
+        <div style="background:var(--code-bg); border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden;">
+          <div style="background:var(--code-header); padding:0.4rem 0.85rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); font-weight:600;">
+            LIVE VARIABLES WATCH
+          </div>
+          <table class="vis-watch-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="visWatchTableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Drawer Controls Footer -->
+      <div class="vis-controls-footer">
+        <!-- Scrubbing Slider -->
+        <div class="vis-slider-wrapper">
+          <input type="range" class="vis-slider" id="visSlider" min="0" max="5" value="0">
+          <span class="vis-step-counter" id="visStepCounter">1 / 5</span>
+        </div>
+
+        <!-- Playback Buttons Row -->
+        <div class="vis-buttons-row">
+          <div class="vis-playback-buttons">
+            <button type="button" class="btn-icon" id="visBtnFirst" title="First Step">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>
+            </button>
+            <button type="button" class="btn-icon" id="visBtnPrev" title="Previous Step">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="btn-icon" id="visBtnPlay" title="Play / Pause" style="color:var(--accent-cyan); border-color:var(--accent-cyan);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+            <button type="button" class="btn-icon" id="visBtnNext" title="Next Step">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <button type="button" class="btn-icon" id="visBtnLast" title="Last Step">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+            </button>
+          </div>
+
+          <select class="vis-speed-select" id="visSpeedSelect" title="Playback Speed">
+            <option value="0.5">0.5x Speed</option>
+            <option value="1.0" selected>1.0x Speed</option>
+            <option value="2.0">2.0x Speed</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Submit Confirmation Modal -->
+  <div class="modal-backdrop" id="submitModal">
+    <div class="modal-dialog">
+      <h3>Submit Pseudo-Code Assessment?</h3>
+      <p>Are you sure you want to finish your test and submit your responses for grading?</p>
+      <div id="modalUnansweredWarning" style="color:var(--accent-amber); font-size:0.85rem; font-weight:600; display:none;"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="btnCancelSubmit">Keep Working</button>
+        <button type="button" class="btn-primary" id="btnConfirmSubmit">Confirm & Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Questions and App Engine -->
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
